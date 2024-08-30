@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.page-login {
+    margin-bottom: 6rem;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.heading {
+    margin: 5rem 0;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-align: center;
+    color: #1a202c;
+}
+
+.login-options {
+    display: grid;
+    gap: 1.5rem;
+}
+
+
+
+.divider {
+    position: relative;
+    text-align: center;
+}
+
+.or {
+    position: relative;
+    z-index: 1;
+    background-color: white;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    color: #718096;
+}
+
+.line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e2e8f0;
+}
+
+.login-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.login-form label {
+    display: block;
+}
+
+.login-form span {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.875rem;
+    color: #1a202c;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 0.25rem;
+    border-radius: 1rem;
+    border: 1px solid #e2e8f0;
+    font-size: 0.875rem;
+    background-color: white;
+}
+
+.login-form input:focus {
+    border-color: #60a5fa;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.5);
+}
+
+.login-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    background-color: #181E2D;
+    color: #f7fafc;
+*{
+    font-family: "Poppins", sans-serif;
+}
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #111721;
+}
+
+.signup-link {
+    display: block;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #4a5568;
+}
+
+.signup-link a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+

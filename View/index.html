@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../Style/index.css">
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+<div class="page-login">
+    <div class="container">
+        <h2 class="heading">Login</h2>
+        <div class="login-options">
+
+            <div class="divider">
+                <span class="or">Welcome To Tic Tac Toe game play</span>
+                <div class="line"></div>
+            </div>
+            <form class="login-form" id="form" action="home.html">
+                <label>
+                    <span>Player 1</span>
+                    <input id="player_one" type="text" placeholder="Smith">
+                    <span id="error_message" style="color: red; font-size: 11px" class="error_message"></span>
+                </label>
+                <label>
+                    <span>Player 2</span>
+                    <input id="player_two" type="text" placeholder="Jhone">
+                    <span id="error_message_two" style="color: red; font-size: 11px" class="error_message"></span>
+
+                </label>
+                <button type="submit" onclick="validation_form()" class="login-button">Continue</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="../js/jeux.js"></script>
+</body>
+</html>
