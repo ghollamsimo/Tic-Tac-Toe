@@ -5,6 +5,42 @@
 }
 
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 10px;
+}
+
+.playerOne, .playerTwo {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+.score {
+    font-size: 24px;
+    font-weight: bold;
+}
+
 .table-container {
     display: flex;
     justify-content: center;
@@ -21,31 +57,77 @@
     display: grid;
     grid-template-columns: repeat(20, auto);
     width: fit-content;
+    border: 2px solid black;
 }
 
 .cell {
-    width: 30px;
-    height: 20px;
+    width: 40px;
+    height: 30px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border: 1px solid #000;
-    font-size: 16px;
+    align-items: center;
     cursor: pointer;
-    border-radius: 20px;
+    font-weight: bold;
+    border: 1px solid #000;
+    box-sizing: border-box;
 }
+
+
+.cell:hover {
+    background-color: #dcdcdc;
+}
+
+
 
 .player_vs_player{
     display: flex;
-    justify-content: center;
     align-content: center;
+    justify-content: center;
     align-items: center;
     gap: 5rem;
 }
 
-.circle{
-    border-radius: 50%;
-    border: 3px solid black;
-    width: 50px;
-    height: 50px;
+
+
+.overlay{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+
+.popup{
+    margin: 70px auto;
+    padding: 20px;
+    background: #ffff;
+    border-radius: 5px;
+    width: 30%;
+    height: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.close{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.buttons{
+    position: absolute;
+    bottom: 10px;  /* Adjust as needed */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
