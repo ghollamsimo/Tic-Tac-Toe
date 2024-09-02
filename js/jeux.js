@@ -1,10 +1,9 @@
-
-
 let player_turn = 'x';
 let first_player = '';
 let second_player = '';
 let scoreX = 0;
 let scoreO = 0;
+let isValid = true;
 
 const gridSize = 20;
 const winCondition = 5;
@@ -17,28 +16,25 @@ const playerTwo = document.getElementById('player_two');
 if (playersData && playersData.length > 0) {
     first_player = playersData[0].first_player;
     second_player = playersData[0].second_player;
+    scoreX = playersData[0].first_player_score;
+    scoreO = playersData[0].second_player_score;
     playerOne.innerHTML = 'Player X: ' + first_player;
     playerTwo.innerHTML = 'Player O: ' + second_player;
 } else {
     console.log('No player data found in localStorage.');
 }
 
-
-
-
 function validation_form() {
     document.getElementById('form').addEventListener('submit', function (event) {
         const player_regex = /^[a-zA-Z]+$/;
         first_player = document.getElementById('player_one').value;
         second_player = document.getElementById('player_two').value;
-        let isValid = true;
 
         if (!player_regex.test(first_player)) {
             const error = document.getElementById('error_message');
             error.innerHTML = "You need to enter the name of player one!";
             isValid = false;
             event.preventDefault();
-
         }
 
         if (!player_regex.test(second_player)) {
@@ -46,14 +42,12 @@ function validation_form() {
             error.innerHTML = "You need to enter the name of player two!";
             isValid = false;
             event.preventDefault();
-
         }
 
         if (isValid) {
             saveLocalStorage();
         }
-
-    })
+    });
 }
 
 const cell_selector = document.querySelector('.row');
@@ -67,20 +61,26 @@ for (let i = 1; i <= 400; i++) {
 }
 
 function saveLocalStorage() {
-    first_player = document.getElementById('player_one').value;
-    second_player = document.getElementById('player_two').value;
+    let existingData = JSON.parse(localStorage.getItem('players')) || [];
 
-    const existingData = JSON.parse(localStorage.getItem('players')) || [];
+    const existingPlayer = existingData.find(player => player.first_player === first_player && player.second_player === second_player);
 
-    const newEntry = {
-        'first_player': first_player,
-        'second_player': second_player,
-        'winner': first_player ? first_player : second_player,
-        'first_player_score': scoreX,
-        'second_player_score': scoreO,
-    };
+    if (existingPlayer) {
+        existingPlayer.first_player_score = scoreX;
+        existingPlayer.second_player_score = scoreO;
+        existingPlayer.winner = scoreX > scoreO ? first_player : second_player;
+    } else {
+        const newPlayers = {
+            'first_player': first_player,
+            'second_player': second_player,
+            'winner': scoreX > scoreO ? first_player : second_player,
+            'first_player_score': scoreX,
+            'second_player_score': scoreO,
+        };
 
-    existingData.push(newEntry);
+        existingData.push(newPlayers);
+    }
+
     localStorage.setItem('players', JSON.stringify(existingData));
 }
 
@@ -182,21 +182,23 @@ function checkScore() {
     }
 
     if (scoreX > scoreO) {
-        winner.textContent = 'Player X wins!';
+        winner.textContent = `${first_player} is the winner!`;
     } else if (scoreO > scoreX) {
-        winner.textContent = 'Player O wins!';
+        winner.textContent = `${second_player} is the winner!`;
     } else {
         winner.textContent = 'It\'s a draw!';
     }
 
     scorePlayerOne.innerHTML = `${scoreX}`;
     scorePlayerTwo.innerHTML = `${scoreO}`;
+
+    saveLocalStorage();
 }
 
 function winning() {
     const popup = document.getElementById('overlay');
     const playAgainButton = document.getElementById('playAgain');
-
+    document.getElementById('historique').addEventListener('click', history);
     checkScore();
 
     popup.style.display = 'block';
@@ -223,4 +225,36 @@ function resetGame() {
     popup.style.opacity = '0';
 }
 
+function popupHistory() {
+    const overlay = document.getElementById('overlayHistory');
+    const closeBtn = document.getElementById('closeBtn');
+
+    overlay.style.display = 'block';
+    overlay.style.opacity = '1';
+    overlay.style.visibility = 'visible';
+
+    closeBtn.onclick = () => {
+        overlay.style.display = 'none';
+        overlay.style.visibility = 'hidden';
+    };
+}
+
+function history() {
+    const historyElement = document.getElementById('historique');
+    const existingData = JSON.parse(localStorage.getItem('players')) || [];
+
+    historyElement.innerHTML = ''; // Clear previous content
+
+    existingData.forEach((playerData, index) => {
+        const historyItem = document.createElement('div');
+        historyItem.innerHTML = `
+            <p>Game ${index + 1}</p>
+            <p>First Player: ${playerData.first_player} - Score: ${playerData.first_player_score}</p>
+            <p>Second Player: ${playerData.second_player} - Score: ${playerData.second_player_score}</p>
+            <p>Winner: ${playerData.winner}</p>
+            <hr>
+        `;
+        historyElement.appendChild(historyItem);
+    });
+}
 
